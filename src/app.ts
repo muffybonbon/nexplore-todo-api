@@ -1,10 +1,13 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 
 import morganMiddleware from './middlewares/morgan';
 
+import RoutesManager from './routers/base/RoutesManager';
+
+import { HTTPStatusEnum } from './enums/HTTPStatusEnum';
 import { NodeEnvEnum } from './enums/NodeEnvEnum';
 
 class App {
@@ -15,6 +18,8 @@ class App {
     /* Initialize Express Server */
     this.app = express();
     this.initializeMiddlewares();
+    this.initializeHealthCheckRoutes();
+    RoutesManager.init(this.app);
   }
 
   protected initializeMiddlewares(): void {
@@ -43,6 +48,12 @@ class App {
       },
     };
   }
+
+  protected initializeHealthCheckRoutes(): void {
+    this.app.get('/', (req: Request, res: Response) => {
+      res.status(HTTPStatusEnum.OK).send({ message: 'Server is healthy' });
+    });
+  }
 }
 
-export default new App().app;
+export default App;

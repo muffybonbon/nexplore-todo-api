@@ -1,14 +1,10 @@
-import { Request, Response } from 'express';
-
 import Logger from './utils/logger';
 
-import app from './app';
+import App from './app';
 
 import 'dotenv/config';
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, TypeScript with Express!');
-});
+const app = new App().app;
 
 /* Start Server */
 const PORT: number = Number(process.env.PORT) || 8080;
