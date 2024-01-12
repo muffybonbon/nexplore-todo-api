@@ -27,5 +27,5 @@
         "no-multi-spaces": "error",
         "no-multiple-empty-lines": "error",
         "no-console": "error"
-    }
+    },
 }

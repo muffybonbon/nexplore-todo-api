@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import morganMiddleware from './middlewares/morgan';
+import errorMiddleware from './middlewares/errorMiddleware';
 
 import RoutesManager from './routers/base/RoutesManager';
 
@@ -20,6 +21,7 @@ class App {
     this.initializeMiddlewares();
     this.initializeHealthCheckRoutes();
     RoutesManager.init(this.app);
+    this.initializeErrorHandling();
   }
 
   protected initializeMiddlewares(): void {
@@ -53,6 +55,10 @@ class App {
     this.app.get('/', (req: Request, res: Response) => {
       res.status(HTTPStatusEnum.OK).send({ message: 'Server is healthy' });
     });
+  }
+
+  protected initializeErrorHandling(): void {
+    this.app.use(errorMiddleware);
   }
 }
 
