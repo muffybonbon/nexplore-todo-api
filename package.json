@@ -1,0 +1,15 @@
+{
+  "name": "nexplore-todo-api",
+  "version": "1.0.0",
+  "description": "A backend repository for nexplore todo app",
+  "main": "index.tsx",
+  "author": "Harry",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:muffybonbon/nexplore-todo-api.git"
+  },
+  "scripts": {
+    "test": "test"
+  }
+}
