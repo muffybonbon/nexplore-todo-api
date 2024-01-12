@@ -1,12 +1,26 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 
+import morganMiddleware from './middlewares/morgan';
+
+import Logger from './utils/logger';
+
+import 'dotenv/config';
+
+const { PORT } = process.env;
+
+/* Initialize Express Server */
 const app = express();
-const PORT = 8080;
 
-app.get('/', (req, res) => {
+/* Middleware Stages */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(morganMiddleware);
+
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript with Express!');
 });
 
+/* Start Server */
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  Logger.info(`Server is running at http://localhost:${PORT}`);
 });
