@@ -11,7 +11,7 @@ class TodoController {
     Logger.info('Creating a new todo');
 
     /* Get the IP from the request socket */
-    const { remoteAddress } = req.socket;
+    const { remoteAddress = '' } = req.socket;
 
     /* Get the title from the request body */
     const { title } = req.body;
@@ -21,8 +21,9 @@ class TodoController {
       title,
       is_done: false,
       created_at: new Date(),
-      created_by: remoteAddress || '',
+      created_by: remoteAddress,
       updated_at: new Date(),
+      updated_by: remoteAddress,
     }
 
     const createdTodo = await TodoService.create(todoCreateObj);
@@ -32,6 +33,9 @@ class TodoController {
   }
 
   static async patchStatusById(req: Request, res: Response) {
+    /* Get the IP from the request socket */
+    const { remoteAddress = '' } = req.socket;
+
     /* Get the id from the request params */
     const { id } = req.params;
 
@@ -40,14 +44,33 @@ class TodoController {
 
     Logger.info(`Updating a todo status. ID: ${id}`);
 
-    const patchedTodo = await TodoService.patchStatusById(Number(id), is_done);
+    const patchedTodo = await TodoService.patchStatusById(Number(id), is_done, remoteAddress);
 
     Logger.info(`Updated a todo status. ID: ${patchedTodo.id}`)
     res.status(HTTPStatusEnum.OK).send({ message: 'Patched', data: patchedTodo });
   }
 
   static async updateById(req: Request, res: Response) {
-    const updatedTodo = await TodoService.updateById(Number(req.params.id), req.body);
+    /* Get the IP from the request socket */
+    const { remoteAddress = '' } = req.socket;
+
+    /* Get the id from the request params */
+    const { id } = req.params;
+
+    /* Get the title from the request body */
+    const { title, is_done } = req.body;
+
+    Logger.info(`Updating a todo. ID: ${id}`);
+
+    const todoUpdateObj = {
+      title,
+      is_done,
+      updated_at: new Date(),
+    };
+
+    const updatedTodo = await TodoService.updateById(Number(id), todoUpdateObj, remoteAddress);
+
+    Logger.info(`Updated a todo. ID: ${updatedTodo.id}`)
     res.status(HTTPStatusEnum.OK).send({ message: 'Updated', data: updatedTodo });
   }
 

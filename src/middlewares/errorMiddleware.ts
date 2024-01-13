@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { HTTPStatusEnum } from '../enums/HTTPStatusEnum';
 
-import CustomError from '../utils/CustomError';
+import { CustomError } from '../utils/CustomErrors';
 import Logger from '../utils/logger';
 
 const errorMiddleware = (error: CustomError | Error, req: Request, res: Response, next: NextFunction) => {

@@ -11,6 +11,7 @@ export interface ITodoTable {
   created_at: Date;
   created_by: string;
   updated_at: Date;
+  updated_by: string;
 }
 
 export type Todo = Selectable<ITodoTable>;

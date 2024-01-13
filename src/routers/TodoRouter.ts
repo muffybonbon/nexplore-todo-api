@@ -14,7 +14,11 @@ class TodoRoutes extends BaseRoutes {
     ], checkValidation, asyncHandler(TodoController.create));
 
     /* Update a TODO */
-    this.router.put('/todos/:id', [], checkValidation, asyncHandler(TodoController.updateById));
+    this.router.put('/todos/:id', [
+      check('id').isNumeric().notEmpty(),
+      check('title').isString().notEmpty(),
+      check('is_done').isBoolean(),
+    ], checkValidation, asyncHandler(TodoController.updateById));
 
     /* Update a TODO status */
     this.router.patch('/todos/:id/status', [
