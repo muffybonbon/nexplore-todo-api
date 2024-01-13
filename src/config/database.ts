@@ -38,5 +38,6 @@ class Database {
   }
 }
 
+export { Database };
 const database = new Database();
 export const db = database.db;
