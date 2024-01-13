@@ -24,6 +24,14 @@ class TodoService {
     return await updateTodo(id, updateTodoObj);
   }
 
+  static async patchStatusById(id: number, isDone: boolean) {
+    const updateTodoObj: UpdateTodo = {
+      is_done: isDone,
+      updated_at: new Date(),
+    };
+    return await updateTodo(id, updateTodoObj);
+  }
+
   static async deleteById(id: number) {
     return await deleteTodo(id);
   }
