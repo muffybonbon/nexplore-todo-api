@@ -8,12 +8,31 @@ import Logger from '../utils/logger';
 
 class TodoController {
   static async create(req: Request, res: Response) {
-    const createdTodo = await TodoService.create(req.body);
+    Logger.info('Creating a new todo');
+    /* Get the IP from the request socket */
+    const { remoteAddress } = req.socket;
+
+    /* Get the title from the request body */
+    const { title } = req.body;
+
+    /* Construct the new todo object */
+    const todoCreateObj = {
+      title,
+      is_done: false,
+      created_at: new Date(),
+      created_by: remoteAddress || '',
+      updated_at: new Date(),
+    }
+
+    const createdTodo = await TodoService.create(todoCreateObj);
+    Logger.info(`Created a new todo. ID: ${createdTodo.id}`)
     res.status(HTTPStatusEnum.CREATED).send({ message: 'Created', data: createdTodo });
   }
 
   static async findAll(req: Request, res: Response) {
+    Logger.info('Finding all todos');
     const todos = await TodoService.findAll();
+    Logger.info(`Found all todos. Count: ${todos.length}`)
     res.status(HTTPStatusEnum.OK).send({ message: 'Success', data: todos });
   }
 

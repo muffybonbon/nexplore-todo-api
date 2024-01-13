@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import { Kysely, PostgresDialect } from 'kysely';
 
-import { IDatabase } from './databaseTypes';
+import { IDatabase } from './database.types';
 
 import Logger from '../utils/logger';
 

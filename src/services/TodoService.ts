@@ -1,6 +1,6 @@
 import { findTodo, createTodo, deleteTodo, updateTodo } from '../repositories/TodoRepository';
 
-import { NewTodo, UpdateTodo } from '../config/databaseTypes';
+import { NewTodo, UpdateTodo } from '../config/database.types';
 
 class TodoService {
   static async findAll() {

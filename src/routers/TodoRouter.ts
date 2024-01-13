@@ -12,6 +12,7 @@ class TodoRoutes extends BaseRoutes {
     // this.router.get('/todos', NoteController.findAll);
     this.router.post('/todos', asyncHandler(TodoController.create));
     this.router.put('/todos/:id', asyncHandler(TodoController.updateById));
+    this.router.patch('/todos/:id/status', asyncHandler(TodoController.updateById));
     this.router.delete('/todos/:id', asyncHandler(TodoController.deleteById));
     this.router.get('/todos', asyncHandler(TodoController.findAll));
   }

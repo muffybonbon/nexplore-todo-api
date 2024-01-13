@@ -1,5 +1,5 @@
 import { db } from '../config/database';
-import { NewTodo, UpdateTodo } from '../config/databaseTypes';
+import { NewTodo, UpdateTodo } from '../config/database.types';
 
 export const findTodo = async () => {
   const query = db.selectFrom('todo');
