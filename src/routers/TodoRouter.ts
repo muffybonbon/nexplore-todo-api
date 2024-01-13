@@ -1,20 +1,29 @@
+import { check } from 'express-validator';
+
 import BaseRoutes from './base/BaseRouter';
 import TodoController from '../controllers/TodoController';
-// import validate from '../helper/validate';
 
+import { checkValidation } from '../middlewares/validationMiddleware';
 import { asyncHandler } from '../middlewares/controllerMiddleware';
 
 class TodoRoutes extends BaseRoutes {
   public routes(): void {
-    // this.router.post('/todo', validate(createNoteSchema), NoteController.create);
-    // this.router.patch('/todos/:id', validate(updateNoteSchema), NoteController.update);
-    // this.router.delete('/todos/:id', NoteController.delete);
-    // this.router.get('/todos', NoteController.findAll);
-    this.router.post('/todos', asyncHandler(TodoController.create));
-    this.router.put('/todos/:id', asyncHandler(TodoController.updateById));
-    this.router.patch('/todos/:id/status', asyncHandler(TodoController.updateById));
-    this.router.delete('/todos/:id', asyncHandler(TodoController.deleteById));
-    this.router.get('/todos', asyncHandler(TodoController.findAll));
+    /* Create a TODO */
+    this.router.post('/todos', [
+      check('title').isString().notEmpty(),
+    ], checkValidation, asyncHandler(TodoController.create));
+
+    /* Update a TODO */
+    this.router.put('/todos/:id', [], checkValidation, asyncHandler(TodoController.updateById));
+
+    /* Update a TODO status */
+    this.router.patch('/todos/:id/status', checkValidation, asyncHandler(TodoController.updateById));
+
+    /* Delete a TODO */
+    this.router.delete('/todos/:id', checkValidation, asyncHandler(TodoController.deleteById));
+
+    /* Get all TODOs */
+    this.router.get('/todos', checkValidation, asyncHandler(TodoController.findAll));
   }
 }
 
