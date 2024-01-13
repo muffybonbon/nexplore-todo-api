@@ -3,7 +3,7 @@ import { validationResult, ValidationError } from 'express-validator';
 
 import { HTTPStatusEnum } from '../enums/HTTPStatusEnum';
 
-const generateErrorMessages = (errors: ValidationError[]): string[] => {
+export const generateErrorMessages = (errors: ValidationError[]): string[] => {
   return errors.map(error => {
     switch (error.type) {
       case 'field':
