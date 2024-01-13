@@ -17,13 +17,13 @@ class TodoRoutes extends BaseRoutes {
     this.router.put('/todos/:id', [], checkValidation, asyncHandler(TodoController.updateById));
 
     /* Update a TODO status */
-    this.router.patch('/todos/:id/status', checkValidation, asyncHandler(TodoController.updateById));
+    this.router.patch('/todos/:id/status', [], checkValidation, asyncHandler(TodoController.updateById));
 
     /* Delete a TODO */
-    this.router.delete('/todos/:id', checkValidation, asyncHandler(TodoController.deleteById));
+    this.router.delete('/todos/:id', [], checkValidation, asyncHandler(TodoController.deleteById));
 
     /* Get all TODOs */
-    this.router.get('/todos', checkValidation, asyncHandler(TodoController.findAll));
+    this.router.get('/todos', [], checkValidation, asyncHandler(TodoController.findAll));
   }
 }
 

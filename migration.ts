@@ -3,7 +3,7 @@ import { Pool } from 'pg';
 import { promises as fs } from 'fs';
 import { Kysely, Migrator, PostgresDialect, FileMigrationProvider } from 'kysely';
 
-import { IDatabase } from './src/config/databaseTypes';
+import { IDatabase } from './src/config/database.types';
 
 import Logger from './src/utils/logger';
 
