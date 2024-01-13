@@ -52,7 +52,14 @@ class TodoController {
   }
 
   static async deleteById(req: Request, res: Response) {
-    const deletedTodo = await TodoService.deleteById(Number(req.params.id));
+    /* Get the id from the request params */
+    const { id } = req.params;
+
+    Logger.info(`Deleting a todo. ID: ${id}`);
+
+    const deletedTodo = await TodoService.deleteById(Number(id));
+
+    Logger.info(`Deleted a todo. ID: ${deletedTodo.id}`)
     res.status(HTTPStatusEnum.OK).send({ message: 'Deleted', data: deletedTodo });
   }
 

@@ -15,5 +15,5 @@ export const updateTodo = async (id: number, updateWith: UpdateTodo) => {
 };
 
 export const deleteTodo = async (id: number) => {
-  return await db.deleteFrom('todo').where('id', '=', id).returning('id').executeTakeFirst();
+  return await db.deleteFrom('todo').where('id', '=', id).returning('id').executeTakeFirstOrThrow();
 };
