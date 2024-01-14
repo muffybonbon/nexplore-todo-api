@@ -1,4 +1,4 @@
-import { HTTPStatusEnum } from "../enums/HTTPStatusEnum";
+import { HTTPStatusEnum } from '../enums/HTTPStatusEnum';
 
 class CustomError extends Error {
   public status: number;

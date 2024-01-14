@@ -1,7 +1,7 @@
 import * as TodoRepository from '../../repositories/TodoRepository';
 import { db } from '../../config/database';
 
-import { todoOne } from '../__data__/todo'; 
+import { todoOne } from '../__data__/todo';
 
 jest.mock('../../config/database', () => ({
   db: {
@@ -64,9 +64,9 @@ describe('TodoRepository', () => {
     it('should update a todo by id', async () => {
       const todoId = 1;
       mockQueryChain.executeTakeFirstOrThrow.mockResolvedValueOnce({ id: todoId });
-  
+
       const result = await TodoRepository.updateTodo(todoId, todoOne);
-  
+
       expect(db.updateTable).toHaveBeenCalledWith('todo');
       expect(mockQueryChain.set).toHaveBeenCalledWith(todoOne);
       expect(mockQueryChain.where).toHaveBeenCalledWith('id', '=', todoId);
@@ -75,14 +75,14 @@ describe('TodoRepository', () => {
       expect(result).toEqual({ id: todoId });
     });
   });
-  
+
   describe('deleteTodo', () => {
     it('should delete a todo by id', async () => {
       const todoId = 1;
       mockQueryChain.executeTakeFirstOrThrow.mockResolvedValueOnce({ id: todoId });
-  
+
       const result = await TodoRepository.deleteTodo(todoId);
-  
+
       expect(db.deleteFrom).toHaveBeenCalledWith('todo');
       expect(mockQueryChain.where).toHaveBeenCalledWith('id', '=', todoId);
       expect(mockQueryChain.returning).toHaveBeenCalledWith('id');

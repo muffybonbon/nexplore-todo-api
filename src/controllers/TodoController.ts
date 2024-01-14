@@ -24,11 +24,11 @@ class TodoController {
       created_by: remoteAddress,
       updated_at: new Date(),
       updated_by: remoteAddress,
-    }
+    };
 
     const createdTodo = await TodoService.create(todoCreateObj);
 
-    Logger.info(`Created a new todo. ID: ${createdTodo.id}`)
+    Logger.info(`Created a new todo. ID: ${createdTodo.id}`);
     res.status(HTTPStatusEnum.CREATED).send({ message: 'Created', data: createdTodo });
   }
 
@@ -46,7 +46,7 @@ class TodoController {
 
     const patchedTodo = await TodoService.patchStatusById(Number(id), is_done, remoteAddress);
 
-    Logger.info(`Updated a todo status. ID: ${patchedTodo.id}`)
+    Logger.info(`Updated a todo status. ID: ${patchedTodo.id}`);
     res.status(HTTPStatusEnum.OK).send({ message: 'Patched', data: patchedTodo });
   }
 
@@ -70,7 +70,7 @@ class TodoController {
 
     const updatedTodo = await TodoService.updateById(Number(id), todoUpdateObj, remoteAddress);
 
-    Logger.info(`Updated a todo. ID: ${updatedTodo.id}`)
+    Logger.info(`Updated a todo. ID: ${updatedTodo.id}`);
     res.status(HTTPStatusEnum.OK).send({ message: 'Updated', data: updatedTodo });
   }
 
@@ -82,7 +82,7 @@ class TodoController {
 
     const deletedTodo = await TodoService.deleteById(Number(id));
 
-    Logger.info(`Deleted a todo. ID: ${deletedTodo.id}`)
+    Logger.info(`Deleted a todo. ID: ${deletedTodo.id}`);
     res.status(HTTPStatusEnum.OK).send({ message: 'Deleted', data: deletedTodo });
   }
 
@@ -91,7 +91,7 @@ class TodoController {
 
     const todos = await TodoService.findAll();
 
-    Logger.info(`Found all todos. Count: ${todos.length}`)
+    Logger.info(`Found all todos. Count: ${todos.length}`);
     res.status(HTTPStatusEnum.OK).send({ message: 'Success', data: todos });
   }
 }

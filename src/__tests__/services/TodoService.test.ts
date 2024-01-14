@@ -1,7 +1,7 @@
 import TodoService from '../../services/TodoService';
 import * as TodoRepository from '../../repositories/TodoRepository';
 import { BadRequestError } from '../../utils/CustomErrors';
-import { todoOne } from '../__data__/todo'; 
+import { todoOne } from '../__data__/todo';
 
 jest.mock('../../repositories/TodoRepository');
 

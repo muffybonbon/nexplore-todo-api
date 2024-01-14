@@ -13,9 +13,5 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn('updated_by', 'text', (col) => col.notNull())
     .execute();
 
-  await db.schema
-    .createIndex('todo_id_idx')
-    .on('todo')
-    .column('id')
-    .execute();
+  await db.schema.createIndex('todo_id_idx').on('todo').column('id').execute();
 }

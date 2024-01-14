@@ -24,8 +24,7 @@ class Database {
   }
 
   private constructPGURL() {
-    return `postgres://${this.user}:${this.password}@${this.host}:${this
-      .port}/${this.database}`;
+    return `postgres://${this.user}:${this.password}@${this.host}:${this.port}/${this.database}`;
   }
 
   private connectToPostgresSQL() {
