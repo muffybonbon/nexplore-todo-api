@@ -24,7 +24,7 @@ describe('Database', () => {
 
   it('should construct the correct PostgreSQL URL', () => {
     const expectedUrl = 'postgres://testuser:testpassword@localhost:5432/testdb';
-    expect((database as any)['PGURL']).toBe(expectedUrl);
+    expect((database as never)['PGURL']).toBe(expectedUrl);
   });
 
   it('should initialize Kysely with a PostgresDialect', () => {
