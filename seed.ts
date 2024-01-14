@@ -25,7 +25,7 @@ async function migrateToLatest() {
     provider: new FileMigrationProvider({
       fs,
       path,
-      migrationFolder: path.join(__dirname, 'src/migrations'),
+      migrationFolder: path.join(__dirname, 'src/seeders'),
     }),
   });
 

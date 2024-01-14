@@ -41,9 +41,9 @@ POSTGRES_USER="postgres"
 POSTGRES_PASSWORD="password"
 ```
 
-Run migrations:
+Run seeder:
 ```shell
-$ npm run migrate
+$ npm run seed
 ```
 This command initializes the database structure for PostgresSQL.
 
