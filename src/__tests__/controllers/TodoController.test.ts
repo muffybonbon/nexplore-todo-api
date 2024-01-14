@@ -14,6 +14,14 @@ jest.mock('../../utils/logger', () => ({
 }));
 
 describe('TodoController', () => {
+  beforeAll(() => {
+    jest.useFakeTimers().setSystemTime(new Date('2020-01-01 00:00:00'));
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe('create', () => {
     it('should create a new todo and return it', async () => {
       const req = { body: { title: 'Test Todo' }, socket: { remoteAddress: '127.0.0.1' } } as Request;

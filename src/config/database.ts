@@ -3,8 +3,6 @@ import { Kysely, PostgresDialect } from 'kysely';
 
 import { IDatabase } from './database.types';
 
-import Logger from '../utils/logger';
-
 import 'dotenv/config';
 
 class Database {
@@ -18,21 +16,16 @@ class Database {
   private PGURL = this.constructPGURL();
 
   constructor() {
-    Logger.info('Connecting to PostgreSQL...');
-    this.db = this.connectToPostgresSQL();
-    Logger.info('Connected to PostgreSQL');
+    this.db = this.createPostgresDialect();
   }
 
   private constructPGURL() {
     return `postgres://${this.user}:${this.password}@${this.host}:${this.port}/${this.database}`;
   }
 
-  private connectToPostgresSQL() {
-    const dialect = new PostgresDialect({
-      pool: new Pool({
-        connectionString: this.PGURL,
-      }),
-    });
+  private createPostgresDialect() {
+    const pool = new Pool({ connectionString: this.PGURL });
+    const dialect = new PostgresDialect({ pool });
     return new Kysely<IDatabase>({ dialect });
   }
 }

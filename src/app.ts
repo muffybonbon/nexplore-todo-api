@@ -29,7 +29,13 @@ class App {
     this.app.use(morganMiddleware);
 
     // Network
-    this.app.use(cors(process.env.NODE_ENV === NodeEnvEnum.DEVELOPMENT ? {} : this.getCORSOptions()));
+    this.app.use(
+      cors(
+        process.env.NODE_ENV === NodeEnvEnum.DEVELOPMENT || process.env.NODE_ENV === NodeEnvEnum.TEST
+          ? {}
+          : this.getCORSOptions()
+      )
+    );
 
     // Security
     this.app.use(helmet());

@@ -69,6 +69,22 @@ Lint the project:
 $ npm run lint
 ```
 
+## Testing the Application
+Update the user credential in `src/__tests/setup/setEnvVars.ts``
+```
+process.env.NODE_ENV = 'test';
+process.env.POSTGRES_DB = 'test';
+process.env.POSTGRES_HOST = 'localhost';
+process.env.POSTGRES_PORT = '5432';
+process.env.POSTGRES_USER = 'postgres';
+process.env.POSTGRES_PASSWORD = 'password';
+```
+
+Run the test case
+```shell
+$ npm run test
+```
+
 ## Features
 - Express.js for building the API server
 - PostgreSQL for data storage

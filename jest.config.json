@@ -1,11 +1,10 @@
 {
   "preset": "ts-jest",
   "testEnvironment": "node",
-  "fakeTimers": {
-    "enableGlobally": true
-  },
   "testMatch": ["**/?(*.)+(spec|test).[jt]s?(x)"],
+  "globalSetup": "<rootDir>/src/__tests__/setup/globalSetup.ts",
+  "globalTeardown": "<rootDir>/src/__tests__/setup/globalTeardown.ts",
   "setupFiles": [
-    "<rootDir>/src/__tests__/jest.env.ts"
+    "<rootDir>/src/__tests__/setup/setEnvVars.ts"
   ]
 }

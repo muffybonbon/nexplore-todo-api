@@ -6,41 +6,55 @@ import { todoOne } from '../__data__/todo';
 jest.mock('../../repositories/TodoRepository');
 
 describe('TodoService', () => {
+  const newDateTodoOne = {
+    ...todoOne,
+    created_at: new Date('2020-01-01 00:00:00'),
+    updated_at: new Date('2020-01-01 00:00:00'),
+  };
+
   const mockedFindTodo = TodoRepository.findTodo as jest.MockedFunction<typeof TodoRepository.findTodo>;
   const mockedCreateTodo = TodoRepository.createTodo as jest.MockedFunction<typeof TodoRepository.createTodo>;
   const mockedUpdateTodo = TodoRepository.updateTodo as jest.MockedFunction<typeof TodoRepository.updateTodo>;
   const mockedDeleteTodo = TodoRepository.deleteTodo as jest.MockedFunction<typeof TodoRepository.deleteTodo>;
 
+  beforeAll(() => {
+    jest.useFakeTimers().setSystemTime(new Date('2020-01-01 00:00:00'));
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   describe('findAll', () => {
     it('should return all todos', async () => {
-      mockedFindTodo.mockResolvedValue([todoOne]);
+      mockedFindTodo.mockResolvedValue([newDateTodoOne]);
 
       const result = await TodoService.findAll();
 
-      expect(result).toEqual([todoOne]);
+      expect(result).toEqual([newDateTodoOne]);
       expect(mockedFindTodo).toHaveBeenCalled();
     });
   });
 
   describe('create', () => {
     it('should create a new todo', async () => {
-      mockedCreateTodo.mockResolvedValue(todoOne);
+      mockedCreateTodo.mockResolvedValue(newDateTodoOne);
 
-      const result = await TodoService.create(todoOne);
+      const result = await TodoService.create(newDateTodoOne);
 
-      expect(result).toEqual(todoOne);
-      expect(mockedCreateTodo).toHaveBeenCalledWith(expect.objectContaining({ ...todoOne }));
+      expect(result).toEqual(newDateTodoOne);
+      expect(mockedCreateTodo).toHaveBeenCalledWith(expect.objectContaining({ ...newDateTodoOne }));
     });
   });
 
   describe('updateById', () => {
     it('should update a todo by id', async () => {
-      mockedUpdateTodo.mockResolvedValue(todoOne);
+      mockedUpdateTodo.mockResolvedValue(newDateTodoOne);
 
-      const result = await TodoService.updateById(1, todoOne, 'user1');
+      const result = await TodoService.updateById(1, newDateTodoOne, 'user1');
 
-      expect(result).toEqual(todoOne);
-      expect(mockedUpdateTodo).toHaveBeenCalledWith(1, expect.objectContaining({ ...todoOne }));
+      expect(result).toEqual(newDateTodoOne);
+      expect(mockedUpdateTodo).toHaveBeenCalledWith(1, expect.objectContaining({ ...newDateTodoOne }));
     });
 
     it('should throw BadRequestError if updated_by is not provided', async () => {
@@ -50,11 +64,11 @@ describe('TodoService', () => {
 
   describe('patchStatusById', () => {
     it('should update the status of a todo by id', async () => {
-      mockedUpdateTodo.mockResolvedValue(todoOne);
+      mockedUpdateTodo.mockResolvedValue(newDateTodoOne);
 
       const result = await TodoService.patchStatusById(1, true, 'user1');
 
-      expect(result).toEqual(todoOne);
+      expect(result).toEqual(newDateTodoOne);
       expect(mockedUpdateTodo).toHaveBeenCalledWith(1, expect.objectContaining({ is_done: true }));
     });
 

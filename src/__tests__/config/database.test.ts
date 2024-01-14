@@ -2,7 +2,6 @@ import { Pool } from 'pg';
 import { PostgresDialect, Kysely } from 'kysely';
 
 import { Database } from '../../config/database';
-import Logger from '../../utils/logger';
 
 jest.mock('pg', () => ({
   Pool: jest.fn(),
@@ -23,7 +22,7 @@ describe('Database', () => {
   });
 
   it('should construct the correct PostgreSQL URL', () => {
-    const expectedUrl = 'postgres://testuser:testpassword@localhost:5432/testdb';
+    const expectedUrl = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
     expect((database as never)['PGURL']).toBe(expectedUrl);
   });
 
@@ -32,10 +31,5 @@ describe('Database', () => {
       pool: expect.any(Pool),
     });
     expect(database.db).toBeInstanceOf(Kysely);
-  });
-
-  it('should log connection messages', () => {
-    expect(Logger.info).toHaveBeenCalledWith('Connecting to PostgreSQL...');
-    expect(Logger.info).toHaveBeenCalledWith('Connected to PostgreSQL');
   });
 });
