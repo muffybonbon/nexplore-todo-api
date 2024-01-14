@@ -14,4 +14,5 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute();
 
   await db.schema.createIndex('todo_id_idx').on('todo').column('id').execute();
+  await db.schema.alterTable('todo').addPrimaryKeyConstraint('todo_pk', ['id']).execute();
 }
