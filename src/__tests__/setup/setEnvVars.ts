@@ -4,4 +4,4 @@ process.env.POSTGRES_DB = 'test';
 process.env.POSTGRES_HOST = 'localhost';
 process.env.POSTGRES_PORT = '5432';
 process.env.POSTGRES_USER = 'postgres';
-process.env.POSTGRES_PASSWORD = '123456';
+process.env.POSTGRES_PASSWORD = 'password';
