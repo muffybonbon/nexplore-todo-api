@@ -30,8 +30,9 @@ describe('TodoController', () => {
         updated_at: new Date(),
         updated_by: '127.0.0.1',
       };
+      const returnTodoCreateObj = { id: 1, title: 'Test Todo' };
 
-      (TodoService.create as jest.Mock).mockResolvedValue({ id: 1, title: 'Test Todo' });
+      (TodoService.create as jest.Mock).mockResolvedValue(returnTodoCreateObj);
 
       await TodoController.create(req, res);
 
@@ -39,7 +40,7 @@ describe('TodoController', () => {
       expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Creating a new todo'));
       expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Created a new todo. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.CREATED);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Created', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Created', data: returnTodoCreateObj });
     });
 
     it('should use default remoteAddress when not provided', async () => {
@@ -57,14 +58,17 @@ describe('TodoController', () => {
         updated_at: new Date(),
         updated_by: '',
       };
+      const returnTodoCreateObj = { id: 1, title: 'Test Todo' };
 
-      (TodoService.create as jest.Mock).mockResolvedValue({ id: 1, title: 'Test Todo' });
+      (TodoService.create as jest.Mock).mockResolvedValue(returnTodoCreateObj);
 
       await TodoController.create(req, res);
 
       expect(TodoService.create).toHaveBeenCalledWith(expectedTodoCreateObj);
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Creating a new todo'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Created a new todo. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.CREATED);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Created', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Created', data: returnTodoCreateObj });
     });
   });
 
@@ -79,14 +83,17 @@ describe('TodoController', () => {
         status: jest.fn().mockReturnThis(),
         send: jest.fn(),
       } as unknown as Response;
+      const returnTodoPatchStatusObj = { id: 1, is_done: true };
 
-      (TodoService.patchStatusById as jest.Mock).mockResolvedValue({ id: 1, is_done: true });
+      (TodoService.patchStatusById as jest.Mock).mockResolvedValue(returnTodoPatchStatusObj);
 
       await TodoController.patchStatusById(req, res);
 
       expect(TodoService.patchStatusById).toHaveBeenCalledWith(1, true, '127.0.0.1');
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updating a todo status'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updated a todo status. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.OK);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Patched', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Patched', data: returnTodoPatchStatusObj });
     });
 
     it('should use default remoteAddress when not provided', async () => {
@@ -99,14 +106,17 @@ describe('TodoController', () => {
         status: jest.fn().mockReturnThis(),
         send: jest.fn(),
       } as unknown as Response;
+      const returnTodoPatchStatusObj = { id: 1, is_done: true };
 
-      (TodoService.patchStatusById as jest.Mock).mockResolvedValue({ id: 1, is_done: true });
+      (TodoService.patchStatusById as jest.Mock).mockResolvedValue(returnTodoPatchStatusObj);
 
       await TodoController.patchStatusById(req, res);
 
       expect(TodoService.patchStatusById).toHaveBeenCalledWith(1, true, '');
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updating a todo status'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updated a todo status. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.OK);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Patched', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Patched', data: returnTodoPatchStatusObj });
     });
   });
 
@@ -121,14 +131,17 @@ describe('TodoController', () => {
         status: jest.fn().mockReturnThis(),
         send: jest.fn(),
       } as unknown as Response;
+      const returnTodoUpdateObj = { id: 1, title: 'Updated Todo', is_done: false };
 
-      (TodoService.updateById as jest.Mock).mockResolvedValue({ id: 1, title: 'Updated Todo', is_done: false });
+      (TodoService.updateById as jest.Mock).mockResolvedValue(returnTodoUpdateObj);
 
       await TodoController.updateById(req, res);
 
       expect(TodoService.updateById).toHaveBeenCalledWith(1, expect.any(Object), '127.0.0.1');
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updating a todo'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updated a todo. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.OK);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Updated', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Updated', data: returnTodoUpdateObj });
     });
 
     it('should use default remoteAddress when not provided', async () => {
@@ -141,14 +154,17 @@ describe('TodoController', () => {
         status: jest.fn().mockReturnThis(),
         send: jest.fn(),
       } as unknown as Response;
+      const returnTodoUpdateObj = { id: 1, title: 'Updated Todo', is_done: false };
 
-      (TodoService.updateById as jest.Mock).mockResolvedValue({ id: 1, title: 'Updated Todo', is_done: false });
+      (TodoService.updateById as jest.Mock).mockResolvedValue(returnTodoUpdateObj);
 
       await TodoController.updateById(req, res);
 
       expect(TodoService.updateById).toHaveBeenCalledWith(1, expect.any(Object), '');
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updating a todo'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Updated a todo. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.OK);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Updated', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Updated', data: returnTodoUpdateObj });
     });
   });
 
@@ -159,14 +175,17 @@ describe('TodoController', () => {
         status: jest.fn().mockReturnThis(),
         send: jest.fn(),
       } as unknown as Response;
+      const returnTodoDeleteObj = { id: 1 };
 
-      (TodoService.deleteById as jest.Mock).mockResolvedValue({ id: 1 });
+      (TodoService.deleteById as jest.Mock).mockResolvedValue(returnTodoDeleteObj);
 
       await TodoController.deleteById(req, res);
 
       expect(TodoService.deleteById).toHaveBeenCalledWith(1);
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Deleting a todo. ID: 1'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Deleted a todo. ID: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.OK);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Deleted', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Deleted', data: returnTodoDeleteObj });
     });
   });
 
@@ -177,14 +196,17 @@ describe('TodoController', () => {
         status: jest.fn().mockReturnThis(),
         send: jest.fn(),
       } as unknown as Response;
+      const returnTodoFindAllObj = [{ id: 1, title: 'Test Todo' }];
 
-      (TodoService.findAll as jest.Mock).mockResolvedValue([{ id: 1, title: 'Test Todo' }]);
+      (TodoService.findAll as jest.Mock).mockResolvedValue(returnTodoFindAllObj);
 
       await TodoController.findAll(req, res);
 
       expect(TodoService.findAll).toHaveBeenCalled();
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Finding all todos'));
+      expect(Logger.info).toHaveBeenCalledWith(expect.stringContaining('Found all todos. Count: 1'));
       expect(res.status).toHaveBeenCalledWith(HTTPStatusEnum.OK);
-      expect(res.send).toHaveBeenCalledWith({ message: 'Success', data: expect.anything() });
+      expect(res.send).toHaveBeenCalledWith({ message: 'Success', data: returnTodoFindAllObj });
     });
   });
 });
